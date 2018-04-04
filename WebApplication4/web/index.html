@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <script type="text/javascript" src="jquery.js"></script>
+
+    <script type="text/javascript">
+        
+        
+        
+        
+         $(document).ready(function () {
+             
+          
+                    $("#hola").click(function () {
+                           var nom;
+                           nom = document.getElementById("valor").value;
+        
+                           var a ;
+                           a = document.getElementById("val").value;
+                           var u = 'https://www.datos.gov.co/resource/gze3-pa7y.json?'+nom+'='+a;
+                           
+                    $.ajax({
+                        // la URL para la petición
+                        
+                        url : u,
+                        // especifica si será una petición POST o GET
+                        type : 'GET',
+                     
+                        // el tipo de información que se espera de respuesta
+                        dataType : 'json',
+                     
+                        // código a ejecutar si la petición es satisfactoria;          
+                        success : function(json) {
+                            alert('se ha realizado la petición');                           
+
+                            var tr;
+
+						    for (var i = 0; i < json.length; i++) {
+						        tr = $('<tr>');
+						        tr.append("<td>" + json[i].ano + "</td>");
+						        tr.append("<td>" + json[i].autor + "</td>");
+						        tr.append("<td>" + json[i].ciudad + "</td>");
+						        tr.append("<td>" + json[i].column0 + "</td>");
+						        tr.append("<td>" + json[i].editor + "</td>");
+						        $('#mostrar').append(tr);
+						        
+						    }  
+
+                        },           
+                        // código a ejecutar si la petición falla;
+                        // son pasados como argumentos a la función
+                        // el objeto de la petición en crudo y código de estatus de la petición
+                        error : function(xhr, status) {
+                            alert('ha ocurrido un error');
+                        },
+                     
+                        // código a ejecutar sin importar si la petición falló o no
+                        complete : function(xhr, status) {
+                            alert(' la Petición a sido realizada');
+                        }
+                    })
+                }  
+                        
+                        
+        )});
+        
+        function eliminar (){
+                         document.getElementById('mostrar').innerHTML='';
+
+                     }  
+
+    </script>
+
+</head>
+<body>
+
+    <h3>Presiona boton para probar Ajax</h3>
+     <select class="btn btn-outline-info mr-4" id="valor" >
+                
+                <option value="ano">Año</option>
+                <option value="autor">Autor</option>
+                <option value="ciudad">Ciudad</option>
+                <option value="column0">Columna</option>
+                <option value="editor">Editor</option>
+                
+	</select>
+    <input type="text" id="val"></input>
+    <button id="hola" onclick="eliminar()">Presioname</button>
+    
+    	<!--<table id="mostrar" border="1px">
+    		<tr>
+			    <th>Año</th>
+			    <th>Autor</th>
+			    <th>Ciudad</th>
+			    <th>Columna</th>
+			    <th>Editor</th>
+		  	</tr>
+    	</table>-->
+        
+         <div class="card-body card mb-3">
+          <div class="table-responsive">
+           <table class="table table-bordered"  width="100%" cellspacing="0" border="1px"> 
+               <thead >
+                <tr>
+                  <th>Año</th>
+                  <th>Autor</th>
+		  <th>Ciudad</th>
+		  <th>Columna</th>
+	          <th>Editor</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                    <th>Año</th>
+                    <th>Autor</th>
+                    <th>Ciudad</th>
+                    <th>Columna</th>
+                    <th>Editor</th>
+                </tr>
+              </tfoot>
+              <tbody id="mostrar">
+                 
+    		<tr>
+			    <th></th>
+                            <th></th>
+			    <th></th>
+                            <th></th>
+			    <th></th>
+			   
+			    
+			   
+		</tr>
+    	
+                
+              </tbody>
+           
+            </table>
+          </div>
+        </div>
+    
+    
+</body>
+</html>
+
+
